@@ -48,9 +48,9 @@
                                                         <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
                                                     </div>
                                                     <div class="card-block">
-                                                        <form class="form-material" action="<%= request.getContextPath() %>/ServletCadastroUsuario" method="post">
+                                                        <form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post">
                                                             <div class="form-group form-default form-static-label">
-                                                                <input type="number" name="id" class="form-control" required="">
+                                                                <input type="number" name="identificador" class="form-control" required="">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">ID</label>
                                                             </div>
@@ -70,7 +70,9 @@
                                                                 <label class="float-label">Senha</label>
                                                             </div>
                                                             
-                                                            <button class="btn btn-primary waves-effect waves-light">Enviar</button>
+                                                            <button class="btn btn-primary waves-effect waves-light">Salvar</button>
+                                                            <button class="btn btn-primary waves-effect waves-light">Atualizar</button>
+                                                            <button class="btn btn-primary waves-effect waves-light">Excluir</button>
                                                              ${msg}
                                                         </form>
                                                     </div>

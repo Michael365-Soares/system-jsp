@@ -8,18 +8,28 @@ public class ModelLogin implements Serializable {
 	private String login;
 	private String senha;
 	private String email;
-	
-	public ModelLogin() {}
+	private int identificador;
 
-	public ModelLogin(String login, String senha,String email) {
+	public ModelLogin(String login, String senha,String email,int identificador) {
 		this.login = login;
 		this.senha = senha;
 		this.email=email;
+		this.identificador=identificador;
 	}
 	
 	public ModelLogin(String login, String senha) {
 		this.login = login;
 		this.senha = senha;
+	}
+	
+	
+
+	public int getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
 	}
 
 	public String getEmail() {

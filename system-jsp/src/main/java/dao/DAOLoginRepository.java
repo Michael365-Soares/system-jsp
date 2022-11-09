@@ -31,11 +31,12 @@ public class DAOLoginRepository {
      }
      
      public void cadastrarUsuario(ModelLogin user) throws SQLException {
-    	 String sql="insert into model_login(login,senha,email) values(?,?,?)";
+    	 String sql="insert into model_login(login,senha,email,identificador) values(?,?,?,?)";
     	 PreparedStatement stmt=conexao.prepareStatement(sql);
     	 stmt.setString(1,user.getLogin());
     	 stmt.setString(2,user.getSenha());
     	 stmt.setString(3,user.getEmail());
+    	 stmt.setInt(4,user.getIdentificador());
     	 stmt.execute();
      }
      
