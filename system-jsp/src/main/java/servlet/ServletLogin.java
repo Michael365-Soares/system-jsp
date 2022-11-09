@@ -45,7 +45,7 @@ public class ServletLogin extends HttpServlet {
 		    /*Verificando se login e senha são diferentes de vazio ou nulo*/
 		    if(login!=null&&!login.isEmpty()&&senha!=null&&!senha.isEmpty()) {
 		    	//Setando Login e senha no obj ModelLogin
-		    	ModelLogin userLogado=new ModelLogin(login,senha);
+		    	ModelLogin userLogado=new ModelLogin(login, senha);
 		    	//Verificando se login e senha passsados pela url estão corretos
 		    	if(daoLogin.validarAutenticacao(userLogado)) {
 		    		
