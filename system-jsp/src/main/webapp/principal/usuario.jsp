@@ -71,12 +71,13 @@
                                                                 <label class="float-label">Senha</label>
                                                             </div>
                                                             
-                                                            <button class="btn btn-success waves-effect waves-light">Salvar</button>
+                                                            <button type="submit" class="btn btn-success waves-effect waves-light">Salvar</button>
                                                             <button type="button" class="btn btn-primary waves-effect waves-light" onclick="limparForm();">Novo</button>
                                                             <button type="button" class="btn btn-info waves-effect waves-light" onclick="criarDeleteComAjax();">Excluir</button>
-                                                            
-                                                             ${msg}
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalUsuario">Pesquisar</button>
+                                                             <spam id="msg"></spam>    
                                                         </form>
+                                                        <jsp:include page="modal_bootstrap.jsp"></jsp:include>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,6 +100,23 @@
     <jsp:include page="required-jquery.jsp"></jsp:include>
     
     <script type="text/javascript">
+    
+          function buscarUsuario(){
+        	  var nome=document.getElementById("validationServer01").value;
+        	  var action=document.getElementById("formUser").action;
+        	  if(nome!=null && nome!='' && nome.trim()!=''){
+        		  $.ajax({
+        			  method:'get',
+        			  url:action,
+        			  data:"nome="+nome+"&acao=buscarUserAjax",
+        			  success:function(response){
+        				  
+        			  }
+        		  }).fail(function(xhr,status,errorThrow){
+        			  alert("Error ao buscar usuário por nome: "+xhr.responseText);
+        		  });
+        	  }
+          }
           
           function criarDeleteComAjax(){
         	  var action=document.getElementById("formUser").action;
@@ -109,10 +127,12 @@
 	        	      url:action,
 	        	      data:"id=" + userId + "&acao=deletarComAjax",
 	        	      success:function(response){
-	        	    	  alert(response);
+	        	    	  limparForm();
+	        	    	  document.getElementById("msg").textContent=response;
 	        	      }
 	        	  }).fail(function(xhr,status,errorThrown){
-	        		  alert("Error ao deletar usuário por id: "+xhr.responseText);
+	        		  document.getElementById("msg").textContent=xhr.responseText;
+	        		  //alert("Error ao deletar usuário por id: "+xhr.responseText);
 	        	  });
         	  }
           }
@@ -130,7 +150,7 @@
 	         for(p=0;p<elementos.length;p++){
 	        	 elementos[p].value='';
 	         }
-	      } 
+	      }
 	         
     </script>
     

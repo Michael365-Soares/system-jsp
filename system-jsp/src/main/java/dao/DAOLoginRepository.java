@@ -86,5 +86,18 @@ public class DAOLoginRepository {
     	st.execute(sql);
     	conexao.commit();
     }
+    
+    public ModelLogin buscarUser(String nome) throws SQLException {
+    	String sql="select *from  model_login where login=?";
+    	PreparedStatement stmt=conexao.prepareStatement(sql);
+    	stmt.setString(1,nome);
+    	ResultSet resultado=stmt.executeQuery();
+    	ModelLogin user=new ModelLogin();
+    	if(resultado.next()) {
+    		user.setId(resultado.getInt("id"));
+    		user.setLogin(resultado.getString("login"));
+    	};
+    	return user;
+    }
 	
 }

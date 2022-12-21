@@ -36,10 +36,12 @@ public class ServletUsuarioController extends HttpServlet {
 			}else if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("deletarComAjax")){
 					String idUser=request.getParameter("id");
 					dao.deletarUser(Integer.parseInt(idUser));
-					RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
-					msg="Usuário deletado com sucesso!!!";
-					request.setAttribute("msg",msg);
-					redirecionar.forward(request, response);
+					msg="Exclusão realizada com êxito!";
+					response.getWriter().write(msg);
+			}else if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("buscarUserAjax")) {
+				   String nomeUser=request.getParameter("nome");
+				   ModelLogin user=dao.consultarUser(nomeUser);
+				   
 			}else {
 				RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 				request.setAttribute("msg",msg);
@@ -47,7 +49,7 @@ public class ServletUsuarioController extends HttpServlet {
 			}
 		} catch (Exception e) {
 			RequestDispatcher redirecionar=request.getRequestDispatcher("error.jsp");
-			msg="Ocorreu algum erro,entre em contatocom o suporte:"+e.getMessage();
+			msg="Ocorreu algum erro,entre em contato com o suporte:"+e.getMessage();
 			request.setAttribute("msg",msg);
 			redirecionar.forward(request, response);
 			e.printStackTrace();

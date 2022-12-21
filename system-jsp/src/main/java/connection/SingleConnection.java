@@ -38,7 +38,7 @@ public class SingleConnection {
 	static Properties getProperties() {
 		Properties prop=new Properties();
 		try {
-			FileInputStream file=new FileInputStream("C:\\Users\\micha\\git\\curso-jsp\\curso-jsp\\target\\arquivos\\conexao.properties");
+			FileInputStream file=new FileInputStream("C:\\Users\\micha\\git\\system-jsp\\system-jsp\\target\\arquivos\\conexao.properties");
 			prop.load(file);
 		} catch (IOException e) {
 			e.printStackTrace();
