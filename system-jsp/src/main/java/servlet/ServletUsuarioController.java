@@ -1,8 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import dao.DAOLoginRepository;
 import model.ModelLogin;
@@ -40,8 +42,16 @@ public class ServletUsuarioController extends HttpServlet {
 					response.getWriter().write(msg);
 			}else if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("buscarUserAjax")) {
 				   String nomeUser=request.getParameter("nome");
-				   ModelLogin user=dao.consultarUser(nomeUser);
-				   
+				   List<ModelLogin> user=dao.buscarUser(nomeUser);
+				   Gson gson=new GsonBuilder().setPrettyPrinting().create();
+				   String jsonCriado=gson.toJson(user);
+				   response.getWriter().write(jsonCriado);
+			}else if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("visualizarUser")) {
+				   int idUser=Integer.parseInt(request.getParameter("id"));
+				   ModelLogin user=dao.buscarUser(idUser);
+				   Gson gson=new GsonBuilder().setPrettyPrinting().create();
+				   String jsonCriado=gson.toJson(user);
+				   response.getWriter().write(jsonCriado);
 			}else {
 				RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 				request.setAttribute("msg",msg);

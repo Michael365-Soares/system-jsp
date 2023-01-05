@@ -21,19 +21,22 @@
                   </div>
                </div>
                <button class="btn btn-primary" type="submit" onclick="buscarUsuario();">Pesquisar</button>
-		  <table class="table table-dark">
-			  <thead>
-			    <tr>
-			      <th scope="col">ID</th>
-			      <th scope="col">NOME</th>
-			      <th scope="col">VER</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  </tbody>
-           </table>
-		  
+          <div style="height:300px;overflow:scroll;">
+			  <table id="table_resultados" class="table table-dark">
+				  <thead>
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">NOME</th>
+				      <th scope="col">EMAIL</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				      
+				  </tbody>
+	           </table>
+		   </div>
       </div>
+      <span id="total_results"></span>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
       </div>

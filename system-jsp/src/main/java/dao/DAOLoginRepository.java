@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import connection.SingleConnection;
 import model.ModelLogin;
@@ -87,15 +89,34 @@ public class DAOLoginRepository {
     	conexao.commit();
     }
     
-    public ModelLogin buscarUser(String nome) throws SQLException {
-    	String sql="select *from  model_login where login=?";
+    public ModelLogin buscarUser(int id) throws SQLException {
+    	String sql="select *from model_login where id=?";
     	PreparedStatement stmt=conexao.prepareStatement(sql);
-    	stmt.setString(1,nome);
+    	stmt.setInt(1, id);
     	ResultSet resultado=stmt.executeQuery();
     	ModelLogin user=new ModelLogin();
     	if(resultado.next()) {
     		user.setId(resultado.getInt("id"));
     		user.setLogin(resultado.getString("login"));
+    		user.setEmail(resultado.getString("email"));
+    		user.setSenha(resultado.getString("senha"));
+    		return user;
+    	}
+    	return user;
+    }
+    
+    public List<ModelLogin> buscarUser(String nome) throws SQLException {
+    	String sql="select *from  model_login where upper(login) like upper(?)";
+    	PreparedStatement stmt=conexao.prepareStatement(sql);
+    	stmt.setString(1,"%"+nome+"%");
+    	ResultSet resultado=stmt.executeQuery();
+    	List<ModelLogin> user=new ArrayList<>();
+    	ModelLogin u=new ModelLogin();
+    	while(resultado.next()) {
+    		u.setId(resultado.getInt("id"));
+    		u.setLogin(resultado.getString("login"));
+    		u.setEmail(resultado.getString("email"));
+    		user.add(u);
     	};
     	return user;
     }

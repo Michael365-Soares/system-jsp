@@ -56,17 +56,17 @@
                                                                 <label class="float-label">ID</label>
                                                             </div>
                                                             <div class="form-group form-default form-static-label">
-                                                                <input type="text" name="login" class="form-control" placeholder="Login" required="" value="${modelLogin.login}">
+                                                                <input type="text" name="login" id="login" class="form-control" placeholder="Login" required="" value="${modelLogin.login}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Login</label>
                                                             </div>
                                                             <div class="form-group form-default form-static-label">
-                                                                <input type="email" name="email" class="form-control" placeholder="Email" required="" value="${modelLogin.email}">
+                                                                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required="" value="${modelLogin.email}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Email</label>
                                                             </div>
                                                             <div class="form-group form-default form-static-label">
-                                                                <input type="password" name="senha" class="form-control" placeholder="Senha" required="" value="${modelLogin.senha}">
+                                                                <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" required="" value="${modelLogin.senha}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Senha</label>
                                                             </div>
@@ -101,22 +101,45 @@
     
     <script type="text/javascript">
     
-          function buscarUsuario(){
-        	  var nome=document.getElementById("validationServer01").value;
-        	  var action=document.getElementById("formUser").action;
-        	  if(nome!=null && nome!='' && nome.trim()!=''){
-        		  $.ajax({
-        			  method:'get',
-        			  url:action,
-        			  data:"nome="+nome+"&acao=buscarUserAjax",
-        			  success:function(response){
-        				  
-        			  }
-        		  }).fail(function(xhr,status,errorThrow){
-        			  alert("Error ao buscar usuário por nome: "+xhr.responseText);
-        		  });
-        	  }
-          }
+    function verEditar(id){
+    	var action=document.getElementById("formUser").action;
+    	$.ajax({
+    		method:'get',
+    		url:action,
+    		data:'id='+id+'&acao=visualizarUser',
+    		success:function(response){
+    			var obj=JSON.parse(response);
+    			document.getElementById("id").value=obj.id;
+    			document.getElementById("login").value=obj.login;
+    			document.getElementById("email").value=obj.email;
+    			document.getElementById("senha").value=obj.senha;
+    		}
+    	}).fail(function(xhr,status,errorThrow){
+    		alert("Error ao vusualizar usuário: "+xhr.responseText);
+    	});
+    }
+          
+    function buscarUsuario(){
+  	  var nome=document.getElementById("validationServer01").value;
+  	  var action=document.getElementById("formUser").action;
+  	  if(nome!=null && nome!='' && nome.trim()!=''){
+  		  $.ajax({
+  			  method:'get',
+  			  url:action,
+  			  data:"nome="+nome+"&acao=buscarUserAjax",
+  			  success:function(response){
+  				var json=JSON.parse(response);
+  				$('#table_resultados > tbody > tr').remove();
+  				for(var i=0;i<json.length;i++){
+  					$('#table_resultados > tbody').append('<tr><td>'+json[i].id+'</td>'+'<td>'+json[i].login+'</td>'+'</td>'+'<td>'+json[i].email+'</td>'+'<td><button type="button" class="btn btn-info" onclick="verEditar('+json[i].id+');">Ver</button></td>'+'</tr>');
+  				}
+  				document.getElementById("total_results").textContent="Total de Resultados:"+json.length;
+  			  }
+  		  }).fail(function(xhr,status,errorThrow){
+  			  alert("Error ao buscar usuário por nome: "+xhr.responseText);
+  		  });
+      }
+    }
           
           function criarDeleteComAjax(){
         	  var action=document.getElementById("formUser").action;

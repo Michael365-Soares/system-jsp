@@ -50,8 +50,8 @@ public class ModelLogin implements Serializable {
 		return login;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setLogin(String i) {
+		this.login = i;
 	}
 
 	public String getSenha() {
