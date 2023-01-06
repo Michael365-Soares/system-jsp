@@ -19,7 +19,22 @@
 		    <artifactId>gson</artifactId>
 		    <version>2.10</version>
        </dependency>
-		
+       
+        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+        
+        <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+		<dependency>
+		    <groupId>jakarta.servlet.jsp.jstl</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		    <version>1.2.7</version>
+		</dependency>
+        
+       
       </dependencies>
      
   <build>

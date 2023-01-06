@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
    
@@ -103,20 +106,7 @@
     
     function verEditar(id){
     	var action=document.getElementById("formUser").action;
-    	$.ajax({
-    		method:'get',
-    		url:action,
-    		data:'id='+id+'&acao=visualizarUser',
-    		success:function(response){
-    			var obj=JSON.parse(response);
-    			document.getElementById("id").value=obj.id;
-    			document.getElementById("login").value=obj.login;
-    			document.getElementById("email").value=obj.email;
-    			document.getElementById("senha").value=obj.senha;
-    		}
-    	}).fail(function(xhr,status,errorThrow){
-    		alert("Error ao vusualizar usuário: "+xhr.responseText);
-    	});
+    	window.location.href=action+"?id="+id+"&acao=visualizarUser";
     }
           
     function buscarUsuario(){

@@ -49,9 +49,11 @@ public class ServletUsuarioController extends HttpServlet {
 			}else if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("visualizarUser")) {
 				   int idUser=Integer.parseInt(request.getParameter("id"));
 				   ModelLogin user=dao.buscarUser(idUser);
-				   Gson gson=new GsonBuilder().setPrettyPrinting().create();
-				   String jsonCriado=gson.toJson(user);
-				   response.getWriter().write(jsonCriado);
+				   msg="Usuário em ediçao";
+				   RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
+				   request.setAttribute("msg",msg);
+				   request.setAttribute("modelLogin",user);
+				   redirecionar.forward(request, response);
 			}else {
 				RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 				request.setAttribute("msg",msg);
