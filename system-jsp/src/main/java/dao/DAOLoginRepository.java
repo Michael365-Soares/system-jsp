@@ -120,5 +120,20 @@ public class DAOLoginRepository {
     	};
     	return user;
     }
+    
+    public List<ModelLogin> buscarUser() throws SQLException {
+    	String sql="select *from  model_login";
+    	PreparedStatement stmt=conexao.prepareStatement(sql);
+    	ResultSet resultado=stmt.executeQuery();
+    	List<ModelLogin> user=new ArrayList<>();
+    	ModelLogin u=new ModelLogin();
+    	while(resultado.next()) {
+    		u.setId(resultado.getInt("id"));
+    		u.setLogin(resultado.getString("login"));
+    		u.setEmail(resultado.getString("email"));
+    		user.add(u);
+    	};
+    	return user;
+    }
 	
 }

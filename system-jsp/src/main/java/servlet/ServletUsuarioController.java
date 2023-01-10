@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -53,6 +54,14 @@ public class ServletUsuarioController extends HttpServlet {
 				   RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 				   request.setAttribute("msg",msg);
 				   request.setAttribute("modelLogin",user);
+				   redirecionar.forward(request, response);
+			}else if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("ListarUsers")) {
+				   List<ModelLogin> models=new ArrayList<>();
+				   models=dao.buscarUser();
+				   RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
+				   msg="Usuários Carregados...";
+				   request.setAttribute("msg",msg);
+				   request.setAttribute("modelsLogin",models);
 				   redirecionar.forward(request, response);
 			}else {
 				RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
