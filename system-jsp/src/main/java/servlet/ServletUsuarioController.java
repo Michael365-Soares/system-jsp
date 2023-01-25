@@ -27,12 +27,15 @@ public class ServletUsuarioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao=request.getParameter("acao");
 		String msg="Exclusão mal sucedida!!!";
-		DAOLoginRepository dao=new DAOLoginRepository();
+		DAOLoginRepository dao=new DAOLoginRepository(request);
 		try {
 			if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("deletar")) {
 				    String idUser=request.getParameter("id");
 					dao.deletarUser(Integer.parseInt(idUser));
+					List<ModelLogin> models=new ArrayList<>();
+					models=dao.buscarUser();
 					RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
+					request.setAttribute("modelsLogin",models);
 					msg="Usuário deletado com sucesso!!!";
 					request.setAttribute("msg",msg);
 					redirecionar.forward(request, response);
@@ -50,8 +53,11 @@ public class ServletUsuarioController extends HttpServlet {
 			}else if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("visualizarUser")) {
 				   int idUser=Integer.parseInt(request.getParameter("id"));
 				   ModelLogin user=dao.buscarUser(idUser);
+				   List<ModelLogin> models=new ArrayList<>();
+				   models=dao.buscarUser();
 				   msg="Usuário em ediçao";
 				   RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
+				   request.setAttribute("modelsLogin",models);
 				   request.setAttribute("msg",msg);
 				   request.setAttribute("modelLogin",user);
 				   redirecionar.forward(request, response);
@@ -66,6 +72,9 @@ public class ServletUsuarioController extends HttpServlet {
 			}else {
 				RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 				request.setAttribute("msg",msg);
+				List<ModelLogin> models=new ArrayList<>();
+				models=dao.buscarUser();
+				request.setAttribute("modelsLogin",models);
 				redirecionar.forward(request, response);
 			}
 		} catch (Exception e) {
@@ -88,27 +97,36 @@ public class ServletUsuarioController extends HttpServlet {
 		user.setId(id!=null&&!id.isEmpty()?Integer.parseInt(id):null);
 		
 		try {
-			DAOLoginRepository dao=new DAOLoginRepository();
+			DAOLoginRepository dao=new DAOLoginRepository(request);
 			if(dao.verificaUsuarioExistente(user.getLogin()) && user.isNovo()){
 				msg="Usuário já cadastrado na base...";
+				List<ModelLogin> models=new ArrayList<>();
+				models=dao.buscarUser();
 				RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 				request.setAttribute("msg",msg);
 				request.setAttribute("modelLogin",user);
+				request.setAttribute("modelsLogin",models);
 				redirecionar.forward(request, response);
 			}else {
 				if(!user.isNovo()) {
 					msg="Usuário alterado com sucesso!!!";
 					user=dao.atualizaUser(user.getId(),new ModelLogin(login,email,senha));
 					user.setId(null);
+					List<ModelLogin> models=new ArrayList<>();
+					models=dao.buscarUser();
 					RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 					request.setAttribute("msg",msg);
 					request.setAttribute("modelLogin",user);
+					request.setAttribute("modelsLogin",models);
 					redirecionar.forward(request, response);
 				}else {
 					user=dao.cadastrarUsuario(user);
+					List<ModelLogin> models=new ArrayList<>();
+					models=dao.buscarUser();
 					RequestDispatcher redirecionar=request.getRequestDispatcher("principal/usuario.jsp");
 					request.setAttribute("msg",msg);
 					request.setAttribute("modelLogin",user);
+					request.setAttribute("modelsLogin",models);
 					redirecionar.forward(request, response);
 				}
 			}

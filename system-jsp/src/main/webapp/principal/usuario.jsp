@@ -108,11 +108,10 @@
 																			<tbody>
 																				<c:forEach items="${modelsLogin}" var="model">
 																					<tr>
-																						<td><c:out value="${model.id}"></c:out></td>
-																						<td><c:out value="${model.login}"></c:out></td>
-																						<td><c:out value="${model.email}"></c:out></td>
-																						<td><button type="button"
-																								class="btn btn-secondary" data-dismiss="modal">VER</button></td>
+																						<td style="width:50px;"><c:out value="${model.id}"></c:out></td>
+																						<td style="width:50px;"><c:out value="${model.login}"></c:out></td>
+																						<td style="width:50px;"><c:out value="${model.email}"></c:out></td>
+																						<td><button type="button" class="btn btn-info" onclick="verEditar(${model.id});">Ver</button></td>
 																					</tr>
 																				</c:forEach>
 																			</tbody>

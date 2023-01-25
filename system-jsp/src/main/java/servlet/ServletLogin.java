@@ -18,13 +18,13 @@ import model.ModelLogin;
 @WebServlet(urlPatterns={"/principal/ServletLogin","/ServletLogin"})
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DAOLoginRepository daoLogin=new DAOLoginRepository();
  
     public ServletLogin() {
         super();
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DAOLoginRepository daoLogin=new DAOLoginRepository(request);
 		String acao=request.getParameter("acao");
 		if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("logout")){
 			request.getSession().invalidate();//Inválida a sessão atual
@@ -36,6 +36,7 @@ public class ServletLogin extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DAOLoginRepository daoLogin=new DAOLoginRepository(request);
 	    String login=request.getParameter("login");
 	    String senha=request.getParameter("senha");
 	    String url=request.getParameter("url");
@@ -48,9 +49,10 @@ public class ServletLogin extends HttpServlet {
 		    	ModelLogin userLogado=new ModelLogin(login, senha);
 		    	//Verificando se login e senha passsados pela url estão corretos
 		    	if(daoLogin.validarAutenticacao(userLogado)) {
-		    		
+		    		ModelLogin admim=daoLogin.buscarUserLogin(userLogado.getLogin());
 		    		//Setando login do usuario ao atributo da sessão 
 		    		request.getSession().setAttribute("usuario",userLogado.getLogin());
+		    		request.getSession().setAttribute("isAdmim",admim.isAdmim());
 	
 		    		//Verificando se o parâmetro url está preenchido se não seta o valor padrão
 		    		if(url == null || url.equals("null")) {

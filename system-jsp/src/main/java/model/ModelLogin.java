@@ -10,6 +10,7 @@ public class ModelLogin implements Serializable {
 	private String email;
 	private int identificador;
 	private Integer id;
+	private boolean isAdmim;
 
 	public ModelLogin(String login, String senha,String email) {
 		this.login = login;
@@ -88,7 +89,14 @@ public class ModelLogin implements Serializable {
 		ModelLogin other = (ModelLogin) obj;
 		return Objects.equals(login, other.login) && Objects.equals(senha, other.senha);
 	}
-	
+
+	public boolean isAdmim() {
+		return isAdmim;
+	}
+
+	public void setAdmim(boolean isAdmim) {
+		this.isAdmim = isAdmim;
+	}
 	
     
 }
