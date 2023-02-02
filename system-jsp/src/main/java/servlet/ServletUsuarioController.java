@@ -92,8 +92,8 @@ public class ServletUsuarioController extends HttpServlet {
 		String email=request.getParameter("email");
 		String senha=request.getParameter("senha");
 		String id=request.getParameter("id");
-		
-		ModelLogin user=new ModelLogin(login,senha,email);
+		String perfil=request.getParameter("perfil");
+		ModelLogin user=new ModelLogin(login,senha,email,perfil);
 		user.setId(id!=null&&!id.isEmpty()?Integer.parseInt(id):null);
 		
 		try {
@@ -110,7 +110,7 @@ public class ServletUsuarioController extends HttpServlet {
 			}else {
 				if(!user.isNovo()) {
 					msg="Usuário alterado com sucesso!!!";
-					user=dao.atualizaUser(user.getId(),new ModelLogin(login,email,senha));
+					user=dao.atualizaUser(user.getId(),user);
 					user.setId(null);
 					List<ModelLogin> models=new ArrayList<>();
 					models=dao.buscarUser();

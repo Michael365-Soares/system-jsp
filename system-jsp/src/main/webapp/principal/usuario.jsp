@@ -67,6 +67,16 @@
 																				class="form-bar"></span> <label class="float-label">Login</label>
 																		</div>
 																		<div class="form-group form-default form-static-label">
+																		    <select class="form-control" aria-label="Default select example" name="perfil">
+																			  <option selected>"${modelLogin.perfil}"</option>
+																			  <option value="ADMIM">Admim</option>
+																			  <option value="SECRETARIA">Secretário</option>
+																			  <option value="AUXILIAR">Auxiliar</option>
+																			</select>
+																			<spam class="form-bar"></spam>
+																			<label class="float-label">Perfil</label>
+																		</div>
+																		<div class="form-group form-default form-static-label">
 																			<input type="email" name="email" id="email"
 																				class="form-control" placeholder="Email" required=""
 																				value="${modelLogin.email}"> <span
@@ -103,6 +113,7 @@
 																					<th scope="col">ID</th>
 																					<th scope="col">LOGIN</th>
 																					<th scope="col">EMAIL</th>
+																					<th scope="col">PERFIL</th>
 																				</tr>
 																			</thead>
 																			<tbody>
@@ -111,6 +122,7 @@
 																						<td style="width:50px;"><c:out value="${model.id}"></c:out></td>
 																						<td style="width:50px;"><c:out value="${model.login}"></c:out></td>
 																						<td style="width:50px;"><c:out value="${model.email}"></c:out></td>
+																						<td style="width:50px;"><c:out value="${model.perfil}"></c:out></td>
 																						<td><button type="button" class="btn btn-info" onclick="verEditar(${model.id});">Ver</button></td>
 																					</tr>
 																				</c:forEach>
@@ -158,7 +170,7 @@
   				var json=JSON.parse(response);
   				$('#table_resultados > tbody > tr').remove();
   				for(var i=0;i<json.length;i++){
-  					$('#table_resultados > tbody').append('<tr><td>'+json[i].id+'</td>'+'<td>'+json[i].login+'</td>'+'</td>'+'<td>'+json[i].email+'</td>'+'<td><button type="button" class="btn btn-info" onclick="verEditar('+json[i].id+');">Ver</button></td>'+'</tr>');
+  					$('#table_resultados > tbody').append('<tr><td>'+json[i].id+'</td>'+'<td>'+json[i].login+'</td>'+'</td>'+'<td>'+json[i].email+'</td>'+'<td>'+json[i].perfil+'</td>'+'<td><button type="button" class="btn btn-info" onclick="verEditar('+json[i].id+');">Ver</button></td>'+'</tr>');
   				}
   				document.getElementById("total_results").textContent="Total de Resultados:"+json.length;
   			  }

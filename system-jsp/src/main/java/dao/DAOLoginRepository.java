@@ -40,13 +40,14 @@ public class DAOLoginRepository {
      }
      
      public ModelLogin cadastrarUsuario(ModelLogin user) throws SQLException {
-    	 String sql="insert into model_login(login,senha,email,usuario_id) values(?,?,?,?)";
+    	 String sql="insert into model_login(login,senha,email,usuario_id,perfil) values(?,?,?,?,?)";
     	 PreparedStatement stmt=conexao.prepareStatement(sql);
     	 ModelLogin m=this.buscarUserLogin(userLog);
     	 stmt.setString(1,user.getLogin());
     	 stmt.setString(2,user.getSenha());
     	 stmt.setString(3,user.getEmail());
     	 stmt.setInt(4,m.getId());
+    	 stmt.setString(5,user.getPerfil());
     	 stmt.execute();
     	 conexao.commit(); 
     	 return this.consultarUser(user.getLogin());
@@ -65,6 +66,7 @@ public class DAOLoginRepository {
 	        user.setLogin(resultado.getString("login"));
 	        user.setEmail(resultado.getString("email"));
 	        user.setSenha(resultado.getString("senha"));
+	        user.setPerfil(resultado.getString("perfil"));
     	}    
         return user;
     }
@@ -82,11 +84,12 @@ public class DAOLoginRepository {
 	}
 	
 	public ModelLogin atualizaUser(int id,ModelLogin user) throws SQLException {
-		String sql="update model_login set login=?,email=?,senha=? where id="+id+" and admim is false";
+		String sql="update model_login set senha=?,email=?,login=?,perfil=? where id="+id+" and admim is false";
 		PreparedStatement stmt=conexao.prepareStatement(sql);
-		stmt.setString(1,user.getLogin());
+		stmt.setString(1,user.getSenha());
 		stmt.setString(2,user.getEmail());
-		stmt.setString(3,user.getSenha());
+		stmt.setString(3,user.getLogin());
+		stmt.setString(4,user.getPerfil());
 		stmt.executeUpdate();
 		conexao.commit();
 		return this.consultarUser(user.getLogin());
@@ -110,6 +113,7 @@ public class DAOLoginRepository {
     		user.setLogin(resultado.getString("login"));
     		user.setEmail(resultado.getString("email"));
     		user.setSenha(resultado.getString("senha"));
+    		user.setPerfil(resultado.getString("perfil"));
     		return user;
     	}
     	return user;
@@ -126,6 +130,7 @@ public class DAOLoginRepository {
     		user.setLogin(resultado.getString("login"));
     		user.setEmail(resultado.getString("email"));
     		user.setSenha(resultado.getString("senha"));
+    		user.setPerfil(resultado.getString("perfil"));
     		return user;
     	}
     	return user;
@@ -143,6 +148,7 @@ public class DAOLoginRepository {
     		user.setEmail(resultado.getString("email"));
     		user.setSenha(resultado.getString("senha"));
     		user.setAdmim(resultado.getBoolean("admim"));
+    		user.setPerfil(resultado.getString("perfil"));
     		return user;
     	}
     	return user;
@@ -161,6 +167,7 @@ public class DAOLoginRepository {
     		u.setId(resultado.getInt("id"));
     		u.setLogin(resultado.getString("login"));
     		u.setEmail(resultado.getString("email"));
+    		u.setPerfil(resultado.getString("perfil"));
     		user.add(u);
     	};
     	return user;
@@ -178,6 +185,7 @@ public class DAOLoginRepository {
     		u.setId(resultado.getInt("id"));
     		u.setLogin(resultado.getString("login"));
     		u.setEmail(resultado.getString("email"));
+    		u.setPerfil(resultado.getString("perfil"));
     		user.add(u);
     	};
     	return user;

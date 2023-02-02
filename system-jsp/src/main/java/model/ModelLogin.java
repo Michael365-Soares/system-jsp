@@ -11,11 +11,13 @@ public class ModelLogin implements Serializable {
 	private int identificador;
 	private Integer id;
 	private boolean isAdmim;
+	private String perfil;
 
-	public ModelLogin(String login, String senha,String email) {
+	public ModelLogin(String login, String senha,String email,String perfil) {
 		this.login = login;
 		this.senha = senha;
 		this.email=email;
+		this.perfil=perfil;
 	}
 	
 	public ModelLogin(String login, String senha) {
@@ -71,6 +73,14 @@ public class ModelLogin implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 
 	@Override

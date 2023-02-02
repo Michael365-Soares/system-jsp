@@ -24,10 +24,9 @@ public class ServletLogin extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAOLoginRepository daoLogin=new DAOLoginRepository(request);
 		String acao=request.getParameter("acao");
 		if(acao!=null&&!acao.isEmpty()&&acao.equalsIgnoreCase("logout")){
-			request.getSession().invalidate();//Inválida a sessão atual
+			request.getSession().invalidate();//Inválida a sessão atual+
 		    RequestDispatcher redirecionar=request.getRequestDispatcher("index.jsp");
 		    redirecionar.forward(request, response);
 		}else {
@@ -40,7 +39,6 @@ public class ServletLogin extends HttpServlet {
 	    String login=request.getParameter("login");
 	    String senha=request.getParameter("senha");
 	    String url=request.getParameter("url");
-	    
 	    System.out.println(url);
 	    try {
 		    /*Verificando se login e senha são diferentes de vazio ou nulo*/
@@ -52,7 +50,7 @@ public class ServletLogin extends HttpServlet {
 		    		ModelLogin admim=daoLogin.buscarUserLogin(userLogado.getLogin());
 		    		//Setando login do usuario ao atributo da sessão 
 		    		request.getSession().setAttribute("usuario",userLogado.getLogin());
-		    		request.getSession().setAttribute("isAdmim",admim.isAdmim());
+		    		request.getSession().setAttribute("perfil",admim.getPerfil().replaceAll("\n",""));
 	
 		    		//Verificando se o parâmetro url está preenchido se não seta o valor padrão
 		    		if(url == null || url.equals("null")) {

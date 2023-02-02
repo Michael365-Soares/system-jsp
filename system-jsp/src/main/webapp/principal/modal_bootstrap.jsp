@@ -28,6 +28,7 @@
 				      <th scope="col">ID</th>
 				      <th scope="col">NOME</th>
 				      <th scope="col">EMAIL</th>
+				      <th scope="col">PERFIL</th>
 				    </tr>
 				  </thead>
 				  <tbody>
