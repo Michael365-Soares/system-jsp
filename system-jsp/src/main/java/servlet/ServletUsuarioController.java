@@ -93,7 +93,8 @@ public class ServletUsuarioController extends HttpServlet {
 		String senha=request.getParameter("senha");
 		String id=request.getParameter("id");
 		String perfil=request.getParameter("perfil");
-		ModelLogin user=new ModelLogin(login,senha,email,perfil);
+		String sexo=request.getParameter("sexo");
+		ModelLogin user=new ModelLogin(login,senha,email,perfil,sexo);
 		user.setId(id!=null&&!id.isEmpty()?Integer.parseInt(id):null);
 		
 		try {

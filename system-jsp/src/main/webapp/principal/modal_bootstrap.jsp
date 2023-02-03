@@ -29,6 +29,7 @@
 				      <th scope="col">NOME</th>
 				      <th scope="col">EMAIL</th>
 				      <th scope="col">PERFIL</th>
+				      <th scope="col">SEXO</th>
 				    </tr>
 				  </thead>
 				  <tbody>

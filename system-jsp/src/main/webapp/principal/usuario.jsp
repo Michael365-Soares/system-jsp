@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="model.ModelLogin" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +89,28 @@
 																				value="${modelLogin.senha}"> <span
 																				class="form-bar"></span> <label class="float-label">Senha</label>
 																		</div>
-
+																		<div class="form-group form-default form-static-label">
+																	       <input type="radio"  name="sexo"  checked="checked" value="MASCULINO"
+																	           <% 
+																	            ModelLogin model=(ModelLogin)request.getAttribute("modelLogin");
+																	            if(model!=null&&model.getSexo().equalsIgnoreCase("masculino")){
+																	            	out.print(" ");
+																	            	out.print("checked=\"checked\"");
+																	            	out.print(" ");
+																	            }
+																	          %>
+																	       >MASCULINO</>
+																	       <input type="radio"  name="sexo" value="FEMININO"
+																	           <% 
+																	            model=(ModelLogin)request.getAttribute("modelLogin");
+																	            if(model!=null&&model.getSexo().equalsIgnoreCase("feminino")){
+																	            	out.print(" ");
+																	            	out.print("checked=\"checked\"");
+																	            	out.print(" ");
+																	            }
+																	          %>
+																	       >FEMININO</>
+																		</div>
 																		<button type="submit"
 																			class="btn btn-success waves-effect waves-light">Salvar</button>
 																		<button type="button"
@@ -114,6 +136,7 @@
 																					<th scope="col">LOGIN</th>
 																					<th scope="col">EMAIL</th>
 																					<th scope="col">PERFIL</th>
+																					<th scope="col">SEXO</th>
 																				</tr>
 																			</thead>
 																			<tbody>
@@ -123,6 +146,7 @@
 																						<td style="width:50px;"><c:out value="${model.login}"></c:out></td>
 																						<td style="width:50px;"><c:out value="${model.email}"></c:out></td>
 																						<td style="width:50px;"><c:out value="${model.perfil}"></c:out></td>
+																						<td style="width:50px;"><c:out value="${model.sexo}"></c:out></td>
 																						<td><button type="button" class="btn btn-info" onclick="verEditar(${model.id});">Ver</button></td>
 																					</tr>
 																				</c:forEach>
@@ -170,7 +194,7 @@
   				var json=JSON.parse(response);
   				$('#table_resultados > tbody > tr').remove();
   				for(var i=0;i<json.length;i++){
-  					$('#table_resultados > tbody').append('<tr><td>'+json[i].id+'</td>'+'<td>'+json[i].login+'</td>'+'</td>'+'<td>'+json[i].email+'</td>'+'<td>'+json[i].perfil+'</td>'+'<td><button type="button" class="btn btn-info" onclick="verEditar('+json[i].id+');">Ver</button></td>'+'</tr>');
+  					$('#table_resultados > tbody').append('<tr><td>'+json[i].id+'</td>'+'<td>'+json[i].login+'</td>'+'</td>'+'<td>'+json[i].email+'</td>'+'<td>'+json[i].perfil+'</td>'+'<td>'+json[i].sexo+'</td>'+'<button type="button" class="btn btn-info" onclick="verEditar('+json[i].id+');">Ver</button></td>'+'</tr>');
   				}
   				document.getElementById("total_results").textContent="Total de Resultados:"+json.length;
   			  }
